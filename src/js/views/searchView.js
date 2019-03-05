@@ -4,7 +4,10 @@ export const getInput = () => elements.searchInput.value;
 
 export const clearInput = () => {elements.searchInput.value = ''};
 
-export const clearResults = () => {elements.searchResultsList.innerHTML = ''};
+export const clearResults = () => {
+    elements.searchResultsList.innerHTML = '';
+    elements.searchResPages.innerHTML = '';
+};
 
 const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
@@ -37,11 +40,10 @@ const renderRecipe = (recipe) => {
 };
 
 const createButton = (page, type) => `
-<button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page-1 : page +1}>
-                    <svg class="search__icon">
+<button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page-1 : page +1}><span>Page ${type === 'prev' ? page-1 : page +1}</span><svg class="search__icon">
                         <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
                     </svg>
-                    <span>Page ${type === 'prev' ? page-1 : page +1}</span>
+                    
                 </button>
                 `;
 
@@ -61,8 +63,7 @@ const renderButtons = (page, numResults, resPerPage) => {
         button = `
 ${createButton(page, 'prev')}
 ${createButton(page, 'next')}
-`
-    }
+`}
     
     elements.searchResPages.insertAdjacentHTML('afterbegin', button);
         
