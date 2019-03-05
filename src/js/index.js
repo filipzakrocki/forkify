@@ -65,7 +65,6 @@ elements.searchResPages.addEventListener('click', e=> {
 const controlRecipe = async () => {
     // Getting a hash (id) from URL
     const id = window.location.hash.replace('#', '');
-    console.log(id);
     
     if (id) {
         //prepare UI for changes
