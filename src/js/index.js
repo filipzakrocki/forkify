@@ -5,6 +5,7 @@ import Recipe from './models/Recipe';
 //views
 import {elements, renderLoader, clearLoader} from './views/base';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 
 //global state
 // 1. search object
@@ -69,6 +70,11 @@ const controlRecipe = async () => {
     
     if (id) {
         //prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe);
+        
+        //highlight selected
+        if (state.search) searchView.highlightSelected(id);
         
         // Create new recipe object
         state.recipe = new Recipe(id);
@@ -83,7 +89,9 @@ const controlRecipe = async () => {
             state.recipe.calcTime();
             
             // render recipe
-            console.log(state.recipe);
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
+            
         } catch (err) {
             alert('Didnt get a valid ID :C')
     }
