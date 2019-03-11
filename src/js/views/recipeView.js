@@ -75,16 +75,7 @@ ${recipe.ingredients.map(el => createIngredient(el)).join(' ')}
 
 
 
-                    <li class="recipe__item">
-                        <svg class="recipe__icon">
-                            <use href="img/icons.svg#icon-check"></use>
-                        </svg>
-                        <div class="recipe__count">1000</div>
-                        <div class="recipe__ingredient">
-                            <span class="recipe__unit">g</span>
-                            pasta
-                        </div>
-                    </li>
+                    
 
                     
                 </ul>
@@ -114,7 +105,7 @@ ${recipe.ingredients.map(el => createIngredient(el)).join(' ')}
 
 `;
     elements.recipe.insertAdjacentHTML('afterbegin', markup);
-}
+};
 
 const createIngredient = (ingredient) => `<li class="recipe__item">
                         <svg class="recipe__icon">
@@ -126,3 +117,16 @@ const createIngredient = (ingredient) => `<li class="recipe__item">
                             ${ingredient.ingredient}
                         </div>
                     </li>`;
+
+export const updateServingsIngredients = (recipe) => {
+    document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
+    
+    const countElements = Array.from(document.querySelectorAll('.recipe__count'));
+    
+    countElements.forEach( (el,i) => {
+        
+        el.textContent = formatCount(recipe.ingredients[i].count);
+    } )
+}
+
+
