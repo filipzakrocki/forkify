@@ -19,7 +19,6 @@ import * as likesView from './views/likesView';
 // 4. liked recipes
 
 const state = {};
-window.state = state;
 
 // *** SEARCH CONTROLLER***
 
@@ -136,8 +135,7 @@ elements.shopping.addEventListener('click', e => {
 
 
 // LIKE CONTROLLER
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
+
 
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
@@ -202,4 +200,11 @@ elements.recipe.addEventListener('click', e => {
 
 // ** create new list element
 
+//restore liked reciped on page load
 
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    state.likes.readStorage();
+    likesView.toggleLikeMenu(state.likes.getNumLikes());
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+})
